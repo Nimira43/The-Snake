@@ -4,6 +4,7 @@ export const musicTracks = [
   new Audio('../sounds/music-3.mp3'),
   new Audio('../sounds/music-4.mp3'),
   new Audio('../sounds/music-5.mp3'),
+  new Audio('../sounds/music-6.mp3'),
 ]
 
 musicTracks.forEach(track => {
