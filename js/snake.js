@@ -3,6 +3,8 @@ import { walls, generateMaze } from './maze.js'
 import { food } from './food.js'
 import { increaseScore } from './score.js'
 import { triggerGameOver } from './game.js'
+import { playPickup } from './sound.js'
+import { playGameOver } from './sound.js'
 
 export let snake = [{
   x: 200,
@@ -90,6 +92,7 @@ export function updateSnake() {
       head.y + grid > w.y
     ) {
       glitchFlash()
+      // playGameOver()
       triggerGameOver()
       return
     }
@@ -104,6 +107,7 @@ export function updateSnake() {
     head.y + grid > food.y
   ) {
     increaseScore()
+    playPickup()
     const newFood = getSafeFoodPosition()
     food.x = newFood.x
     food.y = newFood.y

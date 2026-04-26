@@ -3,6 +3,8 @@ import { drawMaze } from './maze.js'
 import { drawSnake, updateSnake, resetGame } from './snake.js'
 import { drawFood } from './food.js'
 import { drawScore, resetScore, score } from './score.js'
+import { startMusic, stopMusic } from './sound.js'
+import { playGameOver } from './sound.js'
 
 const startModal = document.getElementById('startModal')
 const gameOverModal = document.getElementById('gameOverModal')
@@ -16,6 +18,7 @@ startBtn.onclick = () => {
   startModal.style.display = 'none'
   resetScore()
   resetGame()
+  startMusic()
   gameRunning = true
 }
 
@@ -23,6 +26,7 @@ restartBtn.onclick = () => {
   gameOverModal.style.display = 'none'
   resetScore()
   resetGame()
+  startMusic() 
   gameRunning = true
 }
 
@@ -44,6 +48,8 @@ function loop() {
 
 export function triggerGameOver() {
   gameRunning = false
+  stopMusic()
+  playGameOver()
   finalScore.textContent = `Final Score: ${score}`
   gameOverModal.style.display = 'flex'
 }
