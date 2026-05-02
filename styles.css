@@ -57,6 +57,16 @@ canvas {
   border: 3px solid #4caf50;
 }
 
+.game-title {
+  font-size: 64px;
+  margin-bottom: 20px;
+}
+
+.game-info {
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
 .modal {
   position: fixed;
   inset: 0;
@@ -73,14 +83,15 @@ button {
   font-family: 'VT323', monospace;
   font-size: 24px;
   padding: 10px 20px;
-  background: #000;
+  background-color: #000;
   border: 2px solid #00ff00;
   color: #00ff00;
   cursor: pointer;
+  transition: background-color 0.5s ease-in-out; 
 }
 
 button:hover {
-  background: #003300;
+  background-color: #003300;
 }
 
 #glitch-break {
@@ -100,6 +111,10 @@ button:hover {
   opacity: 0;
   mix-blend-mode: lighten;
   transition: opacity 0.1s ease-out;
+}
+
+#gameOverModal {
+  display: none;
 }
 
 @keyframes scan-move {

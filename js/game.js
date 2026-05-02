@@ -6,6 +6,8 @@ import { drawScore, resetScore, score } from './score.js'
 import { startMusic, stopMusic } from './sound.js'
 import { playGameOver } from './sound.js'
 
+const titleScreen = document.getElementById('titleScreen')
+const titleStartBtn = document.getElementById('titleStartBtn')
 const startModal = document.getElementById('startModal')
 const gameOverModal = document.getElementById('gameOverModal')
 const finalScore = document.getElementById('finalScore')
@@ -14,20 +16,27 @@ const restartBtn = document.getElementById('restartBtn')
 
 let gameRunning = false
 
-startBtn.onclick = () => {
-  startModal.style.display = 'none'
+titleStartBtn.onclick = () => {
+  titleScreen.style.display = 'none'
   resetScore()
   resetGame()
   startMusic()
-  gameRunning = true
+
+  setTimeout(() => {
+    gameRunning = true
+  }, 1000) 
 }
+
 
 restartBtn.onclick = () => {
   gameOverModal.style.display = 'none'
   resetScore()
   resetGame()
-  startMusic() 
-  gameRunning = true
+  startMusic()
+
+  setTimeout(() => {
+    gameRunning = true
+  }, 1000) 
 }
 
 function draw() {

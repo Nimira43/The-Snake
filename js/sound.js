@@ -1,3 +1,30 @@
+function fadeOut(audio, duration = 600) {
+  return new Promise(resolve => {
+    const step = audio.volume / (duration / 50)
+    const fade = setInterval(() => {
+      audio.volume = Math.max(0, audio.volume - step)
+      if (audio.volume <= 0) {
+        clearInterval(fade)
+        audio.pause()
+        audio.currentTime = 0
+        resolve()
+      }
+    }, 50)
+  })
+}
+
+function fadeIn(audio, targetVolume = 0.4, duration = 600) {
+  audio.volume = 0
+  audio.play().catch(() => { })
+  const step = targetVolume / (duration / 50)
+  const fade = setInterval(() => {
+    audio.volume = Math.min(targetVolume, audio.volume + step)
+    if (audio.volume >= targetVolume) {
+      clearInterval(fade)
+    }
+  }, 50)
+}
+
 export const musicTracks = [
   new Audio('../sounds/music-1.mp3'),
   new Audio('../sounds/music-2.ogg'),
@@ -24,10 +51,9 @@ function getRandomTrack() {
   return musicTracks[index]
 }
 
-export function startMusic() {
+export async function startMusic() {
   if (currentTrack) {
-    currentTrack.pause()
-    currentTrack.currentTime = 0
+    await fadeOut(currentTrack)
   }
 
   currentTrack = getRandomTrack()
@@ -35,15 +61,13 @@ export function startMusic() {
 
   currentTrack.oncanplaythrough = () => {
     currentTrack.oncanplaythrough = null
-    currentTrack.play().catch(() => { })
+    fadeIn(currentTrack)
   }
 }
 
-
 export function stopMusic() {
   if (currentTrack) {
-    currentTrack.pause()
-    currentTrack.currentTime = 0
+    fadeOut(currentTrack)
   }
 }
 

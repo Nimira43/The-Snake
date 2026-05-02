@@ -49,18 +49,31 @@ function getSafeFoodPosition() {
 }
 
 export function resetGame() {
-  snake = [{
-    x: grid * 5,
-    y: grid * 5
-  }]
+  const safeX = grid * 5
+  const safeY = grid * 5
 
+  snake = [{ x: safeX, y: safeY }]
   dx = grid
   dy = 0
+
   generateMaze()
+
+  walls.forEach((w, i) => {
+    if (
+      w.x < safeX + grid * 3 &&
+      w.x + w.w > safeX - grid * 3 &&
+      w.y < safeY + grid * 3 &&
+      w.y + w.h > safeY - grid * 3
+    ) {
+      walls.splice(i, 1)
+    }
+  })
+
   const newFood = getSafeFoodPosition()
   food.x = newFood.x
   food.y = newFood.y
 }
+
 
 export function drawSnake() {
   ctx.fillStyle = '#00ff00'
